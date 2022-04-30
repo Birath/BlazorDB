@@ -11,6 +11,7 @@ namespace BlazorDB
         public const string DELETE_ITEM = "deleteItem";
         public const string CLEAR_TABLE = "clear";
         public const string FIND_ITEM = "findItem";
+        public const string FIND_ITEM_BY_INDEX = "findItemByIndex";
         public const string TOARRAY = "toArray";
         public const string WHERE = "where";
     }

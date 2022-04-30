@@ -16,6 +16,7 @@
 <button @onclick="Delete">Delete</button>
 <button @onclick="DeleteAsync">Delete (Async)</button>
 <button @onclick="GetItem">Get Item</button>
+<button @onclick="GetItemByIndex">Get Item By Index</button>
 <button @onclick="ToArray">ToArray</button>
 <button @onclick="AddWithCallback">Add With Callback</button>
 <button @onclick="DeleteDb">Delete DB</button>
@@ -39,6 +40,7 @@
 <button @onclick="Delete">Delete</button>
 <button @onclick="DeleteAsync">Delete (Async)</button>
 <button @onclick="GetItem">Get Item</button>
+<button @onclick="GetItemByIndex">Get Item By Index</button>
 <button @onclick="ToArray">ToArray</button>
 <button @onclick="AddWithCallback">Add With Callback</button>
 <button @onclick="DeleteDb">Delete DB</button>
@@ -180,6 +182,12 @@
     protected async Task GetItem()
     {
         var item = await manager.GetRecordByIdAsync<int, object>(storeName, 3);
+        Console.WriteLine(item);
+    }
+
+    protected async Task GetItemByIndex()
+    {
+        var item = await manager.GetRecordByIndexAsync<string, object>(storeName, new IndexFilterValue("name", "MyName"));
         Console.WriteLine(item);
     }
 

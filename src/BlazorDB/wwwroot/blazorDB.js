@@ -135,6 +135,22 @@ window.blazorDB = {
         });
         return promise;
     },
+    findItemByIndex: function (dotnetReference, transaction, data) {
+        var promise = new Promise((resolve, reject) => {
+            window.blazorDB.getTable(data.dbName, data.storeName).then(table => {
+                const filter = this.createFilterObject([data.filter]);
+                table.get(filter).then(i => {
+                    dotnetReference.invokeMethodAsync('BlazorDBCallback', transaction, false, 'Found item');
+                    resolve(i);
+                }).catch(e => {
+                    console.error(e);
+                    dotnetReference.invokeMethodAsync('BlazorDBCallback', transaction, true, 'Could not find item');
+                    reject(e);
+                });
+            });
+        });
+        return promise;
+    },
     toArray: function(dotnetReference, transaction, dbName, storeName) {
         return new Promise((resolve, reject) => {
             window.blazorDB.getTable(dbName, storeName).then(table => {

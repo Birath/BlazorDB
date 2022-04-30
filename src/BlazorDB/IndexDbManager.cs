@@ -279,6 +279,55 @@ namespace BlazorDB
         }
 
         /// <summary>
+        /// Retrieve a record by index
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="storeName">The name of the store to retrieve the record from</param>
+        /// <param name="index">the index field name</param>
+        /// <param name="filterValue">the value to filter on</param>
+        /// <returns></returns>
+        public async Task<TResult> GetRecordByIndexAsync<TResult>(string storeName, string index, object filterValue)
+        {
+            var trans = GenerateTransaction(null);
+            var filter = new IndexFilterValue(index, filterValue);
+            var data = new { DbName = DbName, StoreName = storeName, Filter = filter };
+            try
+            {
+                return await CallJavascript<TResult>(IndexedDbFunctions.FIND_ITEM_BY_INDEX, trans, data);
+            }
+            catch (JSException jse)
+            {
+                RaiseEvent(trans, true, jse.Message);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
+        /// Retrieve a record by index
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="storeName">The name of the store to retrieve the record from</param>
+        /// <param name="filter">the index name and value to filter on</param>
+        /// <returns></returns>
+        public async Task<TResult> GetRecordByIndexAsync<TResult>(string storeName, IndexFilterValue filter)
+        {
+            var trans = GenerateTransaction(null);
+
+            var data = new { DbName = DbName, StoreName = storeName, Filter = filter };
+            try
+            {
+                return await CallJavascript<TResult>(IndexedDbFunctions.FIND_ITEM_BY_INDEX, trans, data);
+            }
+            catch (JSException jse)
+            {
+                RaiseEvent(trans, true, jse.Message);
+            }
+
+            return default(TResult);
+        }
+
+        /// <summary>
         /// Filter a store on an indexed value 
         /// </summary>
         /// <param name="storeName">The name of the store to retrieve the records from</param>
