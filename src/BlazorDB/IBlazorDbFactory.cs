@@ -4,8 +4,8 @@ namespace BlazorDB
 {
     public interface IBlazorDbFactory
     {
-        Task<IndexedDbManager> GetDbManager(string dbName);
+        Task<IIndexedDbManager> GetDbManager(string dbName);
 
-        Task<IndexedDbManager> GetDbManager(DbStore dbStore);
+        Task<IIndexedDbManager> GetDbManager(DbStore dbStore);
     }
 }

@@ -19,7 +19,7 @@ namespace BlazorDB
             _jsRuntime = jSRuntime;
         }
 
-        public async Task<IndexedDbManager> GetDbManager(string dbName)
+        public async Task<IIndexedDbManager> GetDbManager(string dbName)
         {
             if(!_dbs.Any())
                 await BuildFromServices();
@@ -29,7 +29,7 @@ namespace BlazorDB
             return null;
         }
 
-        public Task<IndexedDbManager> GetDbManager(DbStore dbStore)
+        public Task<IIndexedDbManager> GetDbManager(DbStore dbStore)
             => GetDbManager(dbStore.Name);
 
         async Task BuildFromServices()

@@ -18,3 +18,8 @@ namespace BlazorDB
         }
     }
 }
+
+namespace BUnit
+{
+    
+}

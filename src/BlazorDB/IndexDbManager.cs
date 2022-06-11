@@ -8,7 +8,7 @@ namespace BlazorDB
     /// <summary>
     /// Provides functionality for accessing IndexedDB from Blazor application
     /// </summary>
-    public class IndexedDbManager
+    public class IndexedDbManager : IIndexedDbManager
     {
         readonly DbStore _dbStore;
         readonly IJSRuntime _jsRuntime;
